@@ -1,0 +1,12 @@
+so pehle monolithic arch use hota isme humara frontend and backend dono ek hi jagah pe hota hai
+so maan le ab ek thrid person irtc ki website se train info lena chata 
+so iska ek way hai ya toh databse ka acess de do jo ni de sakte ya backend ka access de do vo bhi ni
+
+
+so isko solve ke liye ye :
+so hum backend bante and ab fromtend alag banta and backend se api connect kar deta ab kisi ko humare backend se contact toh api ke trhough even 
+humare frontend ko bhi api ke trough humare backend se baat api m securty laga sakte and so ab humara backend aur frontend dono alag alag hai aur hum apne backend ko api ke throgh third party ke sath connect kar sakte hai
+so isko hum API kehte hai Application Programming Interface
+
+frontend-> api->backend aisa kuch flow ho jayega humari application ka and api 
+ka use karke same backend bahut sare frontend ke liye use kar sakte hai
