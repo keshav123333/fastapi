@@ -1,0 +1,9 @@
+static website -: jaha jayda interaction ni hote like -: blogs, news, etc
+dynamic website -: jaha jayda interaction hote like -: social media, e-commerce,email,ya microsoft excel mein kitna kuch kar sakte so ye dynamic s/w 
+if crud operation karna hai to dynamic website banao
+ye hi http request kehte 
+crud operation -: create, read, update, delete
+retrive karna chate toh  -: get request 
+jab tu koi info website ke pas bhejta hai toh -: post request
+jab tu koi info update karna chahta hai toh -: put request
+jab tu koi info delete karna chahta hai toh -: delete request

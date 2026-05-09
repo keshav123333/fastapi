@@ -1,0 +1,105 @@
+from fastapi import FastAPI,HTTPException
+from fastapi.responses import JSONResponse
+
+from pydantic import BaseModel,computed_field,Field
+import json
+
+app=FastAPI()
+# "name": "Neha Sinha", "city": "Kolkata", "age": 30, "gender": "female", "height": 1.55, "weight": 75, "bmi": 31.22, "verdict": "Obese"}}
+class Patient(BaseModel):
+    id:str
+    name:str
+    age:int
+    city:str
+    gender:str
+    height:float
+    weight:int
+
+    @computed_field
+    @property
+    def bmi(self)->float:
+        return self.weight/(self.height**2)
+    
+    @computed_field
+    @property
+    def verdict(self)->str:
+        bmi=self.bmi
+        if bmi<18.5:
+            return "Underweight"
+        elif 18.5<=bmi<25:
+            return "Normal weight"
+        elif 25<=bmi<30:
+            return "Overweight"
+        else:
+            return "Obese"
+
+
+class patientUpdate(BaseModel):
+    name:str
+    age:int
+    city:str
+    gender:str
+    height:float
+    weight:int
+
+
+
+
+
+def load_json():
+    with open("data.json") as f:
+        data=json.load(f)
+    return data
+
+
+def save_json(data):
+    with open("data.json","w") as f:
+        json.dump(data,f,indent=4)
+
+
+@app.get("/")
+def read_root():
+    return {"message":"Hello World"}
+
+
+@app.post("/patients")
+def create_patient(patient:Patient):
+    data=load_json()
+
+    if patient.id in data:
+        raise HTTPException(status_code=400,detail="Patient with this ID already exists")
+    data[patient.id] = patient.model_dump(exclude={"id"})
+    save_json(data)
+    return JSONResponse(content={"message":"Patient created successfully"},status_code=201)
+
+
+
+@app.put("/updatepatient/{patient_id}")
+def update_patient(patient_id:str,patient:patientUpdate):
+    data=load_json()
+    if patient_id not in data:
+        raise HTTPException(status_code=404,detail="Patient with this ID does not exist")
+    needed_patient=data[patient_id]
+    up=patient.model_dump(exclude_unset=True)
+    for key,value in up.items():
+        needed_patient[key]=value
+
+    #now ab meri baat sunjaise yaha pe bmi and verdict toh aaya hi ni and unhe hieght weight change toh usse calculate ya change na
+    needed_patient[id]=patient_id
+    patient_obj=Patient(**needed_patient)
+    needed_patient=patient_obj.model_dump(exclude={"id"})
+
+    data[patient_id] = needed_patient
+
+    save_json(data)
+    return JSONResponse(content={"message":"Patient updated successfully"},status_code=200)
+
+
+@app.delete("/deletepatient/{patient_id}")
+def delete_patient(patient_id:str):
+    data=load_json()
+    if patient_id not in data:
+        raise HTTPException(status_code=404,detail="Patient with this ID does not exist")
+    del data[patient_id]
+    save_json(data)
+    return JSONResponse(content={"message":"Patient deleted successfully"},status_code=200)

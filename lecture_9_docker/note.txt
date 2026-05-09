@@ -1,0 +1,45 @@
+docker
+
+1. its neede as because take a situation where u wnat to give your project t someone else now how will u ensure it run proerly on other device as there can be mismatch or resouces 
+so now docker came in picture it help to create container that contain all dependencies to make the website run 
+
+2 it give isloation so any resource and library mismatch will not occur
+3. scalable 
+
+
+
+
+docker components
+docker engine : ye niche ka sab docker engine bascially paltform jisse image bana ya run
+1. docker daemon : its brain of that manage images and conainer and background process
+
+
+docker cli :  here we arite code and instruction tht we want to give to the daemon to excute so 
+rest api: this is the layer present b/w brain and cli 
+
+
+
+docker image :
+what does it contains 
+1. base image : it contain os of the application like the code python node u have use it contains that 
+2. application code : actual code file 
+3. dependencies: all dependencies are stored here library etc
+4. metadata
+
+Docker image lifecycle 
+1. creation -> stored in aws ->  pulled from storage and exccuted 
+where its stroed its called registry eg docker hub 
+
+
+docker container : its a running instance of docker image means docker file when run a application gets build that i container 
+
+docker registry : its stored different images and tags are also associated wiith them these tags 
+tell us the version of the image 
+docker hub is and example of registry 
+
+
+Now anayone can imprt these images in their machine and can try running it in their own machines 
+
+
+adv used in microservices 
+1. it gave scalable or we want to migrate from one cloud to another t became easy smooth 
